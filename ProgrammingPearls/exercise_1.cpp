@@ -5,8 +5,9 @@
 
 using namespace std;
 
-#define PROBLEM_2
-#define PROBLEM_1
+//#define COLUMN_1
+#define COLUMN_2
+#ifdef COLUMN_1
 
 #define MAX_NUM			5000000 // 최대 수의 범위
 #define MAX_RAND_NUM	1000000 // 수의 개수
@@ -31,7 +32,7 @@ void createRandNum() {
 	}
 }
 
-#ifdef PROBLEM_1
+
 
 int qsortArr[MAX_RAND_NUM];
 
@@ -56,11 +57,6 @@ void testSet() {
 		setArr.insert(randNum[i]);
 	}
 }
-
-#endif // PROBLEM_1
-
-
-#ifdef PROBLEM_2
 
 #define SHIFT5 5 // int를 bit로 바꾸기 위해(32 == 2진수 100000) shift >> 5 == 1
 
@@ -97,8 +93,89 @@ private:
 	int m_bitArr[(MAX_NUM >> SHIFT5) + 1];
 };
 
-#endif // PROBLEM_2
+#endif // COLUMN_1
+
+#ifdef COLUMN_2
+
+#define MAX_LENGTH 10000000
+int list[MAX_LENGTH];
+
+void init(int *pList) {
+	for (int i = 0; i < MAX_LENGTH; ++i) {
+		pList[i] = i;
+	}
+}
+
+int gcd(int x, int y) {
+	if (y == 0) {
+		return x;
+	}
+	return gcd(y, x%y);
+}
+
+void swap(int &x, int &y) {
+	int temp = x;
+	x = y;
+	y = temp;
+}
+
+void swapArr(int *pList, const int x, const int y, const int m) {
+	
+	for (int i = 0; i < m; ++i) {
+		swap(pList[x + i], pList[y + i]);
+	}
+}
+
+void jugglingAction(int n) {
+
+	init(list);
+	int temp;
+	const int g = gcd(MAX_LENGTH, n);
+	for (int i = 0; i < g; ++i) {
+		temp = list[i];
+		int j = i;
+		while (1) {
+			int k = j + n;
+			if (k >= MAX_LENGTH) {
+				k -= MAX_LENGTH;
+			}
+			if (k == i) {
+				break;
+			}
+			list[j] = list[k];
+			j = k;
+		}
+
+		list[j] = temp;
+	}
+}
+
+void change(int n) {
+
+	init(list);
+	int i = n;
+	int p = n;
+	int j = MAX_LENGTH - p;
+	while (i != j) {
+		if (i > j) {
+			swapArr(list, p - i, p, j);
+			i -= j;
+		}
+		else {
+			swapArr(list, p - i, p + j - i, i);
+			j -= i;
+		}
+	}
+	swapArr(list, p - i, p, i);
+}
+
+
+#endif // COLUMN_2
+
+
 int main() {
+
+#ifdef COLUMN_1
 	clock_t start, end;
 
 	start = clock();
@@ -127,6 +204,18 @@ int main() {
 	end = clock();
 	
 	cout << "qsort 수행 시간          : " << (double)(end - start) / CLOCKS_PER_SEC << "\n";
+
+#endif // COLUMN_1
+
+	clock_t start, end;
+
+	start = clock();
+	change(1);
+	end = clock();
+
+	cout << "저글링 시간           : " << (double)(end - start) / CLOCKS_PER_SEC << "\n";
+
+	
 
 	return 0;
 }
