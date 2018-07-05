@@ -1,3 +1,4 @@
+#include <process.h>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -5,12 +6,12 @@
 
 using namespace std;
 
-//#define COLUMN_1
-#define COLUMN_2
+#define COLUMN_1
+//#define COLUMN_2
 #ifdef COLUMN_1
 
-#define MAX_NUM			5000000 // 최대 수의 범위
-#define MAX_RAND_NUM	1000000 // 수의 개수
+#define MAX_NUM			100 // 최대 수의 범위
+#define MAX_RAND_NUM	10 // 수의 개수
 int randNum[MAX_NUM];
 
 
@@ -24,7 +25,7 @@ void createRandNum() {
 	for (int i = 0; i < MAX_NUM; ++i) {
 		randNum[i] = i;
 	}
-	srand((unsigned int)time(NULL));
+	srand((unsigned int)_getpid() + (unsigned int)time(NULL));
 
 	// 앞의 100만개를 1000만의 범위 숫자중 랜덤한 숫자로 구성함
 	for (int i = 0; i < MAX_RAND_NUM; ++i) {
@@ -37,7 +38,7 @@ void createRandNum() {
 int qsortArr[MAX_RAND_NUM];
 
 int compareNum(const void* x, const void* y) {
-	return (int *)x - (int *)y;
+	return *(int *)x - *(int *)y;
 }
 
 void setQsortArr() {
@@ -207,6 +208,7 @@ int main() {
 
 #endif // COLUMN_1
 
+#ifdef COLUMN_2
 	clock_t start, end;
 
 	start = clock();
@@ -214,7 +216,7 @@ int main() {
 	end = clock();
 
 	cout << "저글링 시간           : " << (double)(end - start) / CLOCKS_PER_SEC << "\n";
-
+#endif // COLUMN_2
 	
 
 	return 0;
