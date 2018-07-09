@@ -6,12 +6,8 @@
 
 using namespace std;
 
-#define COLUMN_1
-//#define COLUMN_2
-#ifdef COLUMN_1
-
-#define MAX_NUM			100 // 최대 수의 범위
-#define MAX_RAND_NUM	10 // 수의 개수
+#define MAX_NUM			100000 // 최대 수의 범위
+#define MAX_RAND_NUM	10000 // 수의 개수
 int randNum[MAX_NUM];
 
 
@@ -32,8 +28,6 @@ void createRandNum() {
 		swap(randNum[i], randNum[rand()% MAX_NUM]);
 	}
 }
-
-
 
 int qsortArr[MAX_RAND_NUM];
 
@@ -94,10 +88,6 @@ private:
 	int m_bitArr[(MAX_NUM >> SHIFT5) + 1];
 };
 
-#endif // COLUMN_1
-
-#ifdef COLUMN_2
-
 #define MAX_LENGTH 10000000
 int list[MAX_LENGTH];
 
@@ -114,7 +104,7 @@ int gcd(int x, int y) {
 	return gcd(y, x%y);
 }
 
-void swap(int &x, int &y) {
+void swap_(int &x, int &y) {
 	int temp = x;
 	x = y;
 	y = temp;
@@ -123,7 +113,7 @@ void swap(int &x, int &y) {
 void swapArr(int *pList, const int x, const int y, const int m) {
 	
 	for (int i = 0; i < m; ++i) {
-		swap(pList[x + i], pList[y + i]);
+		swap_(pList[x + i], pList[y + i]);
 	}
 }
 
@@ -170,13 +160,8 @@ void change(int n) {
 	swapArr(list, p - i, p, i);
 }
 
+void column_1() {
 
-#endif // COLUMN_2
-
-
-int main() {
-
-#ifdef COLUMN_1
 	clock_t start, end;
 
 	start = clock();
@@ -203,12 +188,13 @@ int main() {
 	start = clock();
 	testQsort();
 	end = clock();
-	
+
 	cout << "qsort 수행 시간          : " << (double)(end - start) / CLOCKS_PER_SEC << "\n";
 
-#endif // COLUMN_1
+}
 
-#ifdef COLUMN_2
+void column_2() {
+
 	clock_t start, end;
 
 	start = clock();
@@ -216,8 +202,4 @@ int main() {
 	end = clock();
 
 	cout << "저글링 시간           : " << (double)(end - start) / CLOCKS_PER_SEC << "\n";
-#endif // COLUMN_2
-	
-
-	return 0;
 }
