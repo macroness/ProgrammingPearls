@@ -388,6 +388,34 @@ void printScm(const string name, const string age, const string country, const s
 	}
 }
 
+// 8.
+// 디지털 숫자 표시 장치(seven-segment device)
+static map<__int8, __int8> numMap =
+{
+{0, 125}, // 0111 1101 : 125
+{1, 80 }, // 0101 0000 : 80
+{2, 55 }, // 0011 0111 : 55
+{3, 87 }, // 0101 0111 : 87
+{4, 90 }, // 0101 1010 : 90
+{5, 79 }, // 0100 1111 : 79
+{6, 111}, // 0110 1111 : 111
+{7, 84 }, // 0101 0100 : 84
+{8, 127}, // 0111 1111 : 127
+{9, 94 }};// 0101 1110 : 94
+
+void printDigitArr(const uint16_t n) {
+	uint16_t rest = n; // 나머지
+	uint8_t quotient = 0; // 몫
+	for (uint16_t i = 10000; i >= 1; i /= 10) {
+		quotient = static_cast<uint8_t>(rest / i);
+		rest = rest % i;
+		printf("%d ", numMap[quotient]);
+	}
+	cout << "\n"; 
+}
+
+
+
 void testColumn_3() {
 
 	// 3.
@@ -416,4 +444,7 @@ void testColumn_3() {
 	cout << "hello, my name is $1. I'm $2 year's old. I'm from $3. Thanks\n\n";
 	
 	printScm("iCa", "28", "Korea", "hello, my name is $1. I'm $2 year's old. I'm from $3. Thanks\n");
+
+	// 8.
+	printDigitArr(65123);
 }
