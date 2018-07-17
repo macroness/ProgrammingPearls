@@ -18,6 +18,9 @@
     <ClInclude Include="column_3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="column_4.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="column_3.cpp">
@@ -28,6 +31,9 @@
     </ClCompile>
     <ClCompile Include="column_1n2.h">
       <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="column_4.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

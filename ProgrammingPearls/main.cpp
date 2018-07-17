@@ -1,11 +1,9 @@
-#include "column_3.h"
+#include "column_4.h"
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 int main() {
-	testColumn_3();
+	testColumn_4();
 
 	return 0;
 }
